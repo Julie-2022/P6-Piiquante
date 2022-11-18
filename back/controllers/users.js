@@ -3,20 +3,34 @@ const bcrypt = require("bcrypt"); // crypt mot de pass
 //const { is } = require("express/lib/request");
 const jwt = require("jsonwebtoken");
 //const bruteForce = require("bruteforcejs")
+const validator = require("validator");
 
 async function createUser(req, res) {
+  const { email, password } = req.body;
+
+  if (validator.isEmail(email) == false) {
+    return res
+      .status(400)
+      .send({ message: "l'e-mail n'est pas valide :", email });
+  }
+  if (validator.isStrongPassword(password) == false) {
+    return res
+      .status(400)
+      .send({ message: "Mot de passe pas assez fort :", password });
+  }
+
   try {
-    const { email, password } = req.body;
-    //console.log({ email, password });
     const hashedPassword = await hashPassword(password);
     //console.log("password: ", password);console.log("hashedpassword: ", hashedPassword);
     const user = new User({ email, password: hashedPassword });
     await user.save();
     //réponse de Bd
-    res.status(201).send({ message: "utilisateur enregistré !" });
+    return res.status(201).send({ message: "utilisateur enregistré !" });
     //return console.log("User enregistré !", res)
   } catch (err) {
-    res.status(409).send({ message: "Utilisateur pas enregistré :" + err });
+    return res
+      .status(409)
+      .send({ message: "Utilisateur pas enregistré :" + err });
   }
 }
 
@@ -32,10 +46,14 @@ async function logUser(req, res) {
     //Trouver email
     const user = await User.findOne({ email: email });
     //Vérif password
-    //User.findOne({email: email}).then(console.log) / return 1 objet User
+    User.findOne({ email: email }).then(console.log); // return 1 objet User
+    console.log({ password });
+    console.log("req.body.password", req.body.password);
     const isValidPassword = await bcrypt.compare(password, user.password);
+    console.log({ password });
+
     if (!isValidPassword) {
-      res.status(403).send({ message: "Mot de passe incorrect" });
+      return res.status(403).send({ message: "Mot de passe incorrect" });
     }
     const token = createToken(email);
     res
@@ -44,21 +62,18 @@ async function logUser(req, res) {
     //console.log("user :", user);console.log("isValidPassword :", isValidPassword);
   } catch (err) {
     console.error(err);
-    res.status(500).send({ message: "Erreur interne" });
+    return res.status(500).send({ message: "Erreur interne" });
   }
 }
 
 function createToken(email) {
   const jwtPassword = process.env.JWT_PASSWORD;
-  return jwt.sign({ email: email }, jwtPassword, { expiresIn: "24h" }); //test 1000ms 
+  return jwt.sign({ email: email }, jwtPassword, { expiresIn: "24h" }); //test 1000ms
 }
 
 /**** Pour vider la Bd */
 //User.deleteMany({}).then(() => console.log("all removed"))
 module.exports = { createUser, logUser };
-
-
-
 
 // jwt.verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imp1bHl6ZWJkYTEyM0B5YWhvby5mciIsImlhdCI6MTY2ODA3MjgxNSwiZXhwIjoxNjY4MDcyODE2fQ.s1quOEjp1I0xPEgiTxRdhgpnRyN7FOJxBqPvhA_8APY",
 //  function verif (err, decode) {

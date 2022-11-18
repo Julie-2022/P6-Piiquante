@@ -3,19 +3,19 @@
 # {email: "julyzebda@pouet.fr", password: "pouet"}
 #{email: "julyzebda123@yahoo.fr", password: "pouetpouet"}
 
-GET http://localhost:3000/api/sauces
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imp1bHl6ZWJkYTEyM0B5YWhvby5mciIsImlhdCI6MTY2ODA3MjgxNSwiZXhwIjoxNjY4MDcyODE2fQ.s1quOEjp1I0xPEgiTxRdhgpnRyN7FOJxBqPvhA_8APY
+# GET http://localhost:3000/api/sauces
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imp1bHl6ZWJkYTEyM0B5YWhvby5mciIsImlhdCI6MTY2ODA3MjgxNSwiZXhwIjoxNjY4MDcyODE2fQ.s1quOEjp1I0xPEgiTxRdhgpnRyN7FOJxBqPvhA_8APY
 
 ##################
 
 POST http://localhost:3000/api/auth/signup
 
-{"email": "test@example.fr", "password": "password"}
+{"email": "julyzebda@yhoo.fr", "password": "Yahoo/2023"}
 
 
 ##################
 
-POST http://localhost:3000/api/sauces/636fcff9c04fe32f7afe88b2/like
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imp1bHl6ZWJkYUBwb3VldC5mciIsImlhdCI6MTY2ODI3NTcxMSwiZXhwIjoxNjY4MzYyMTExfQ.opcDxwwDu3i-WLROH7XYy-ZAdO87yVppia-iQCdblXU
+# POST http://localhost:3000/api/sauces/636fcff9c04fe32f7afe88b2/like
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imp1bHl6ZWJkYUBwb3VldC5mciIsImlhdCI6MTY2ODI3NTcxMSwiZXhwIjoxNjY4MzYyMTExfQ.opcDxwwDu3i-WLROH7XYy-ZAdO87yVppia-iQCdblXU
 
-{"userId": "636bd64b135521e5b32d0ac9", "like": 1}
+# {"userId": "636bd64b135521e5b32d0ac9", "like": 1}
