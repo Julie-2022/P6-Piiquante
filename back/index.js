@@ -5,14 +5,29 @@ const port = 3000;
 const path = require("path"); // ds node pour avoir le dirname et donner le chemin absolu
 
 const bodyParser = require("body-parser");
+const res = require("express/lib/response");
 
 //Connection to Database
 require("./mongo");
 
 //Middleware
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  );
+  next();
+});
+
 app.use(bodyParser.json());
 app.use("/api/sauces", saucesRouter);
 app.use("/api/auth", authRouter);
+
 //Routes
 app.get("/", (req, res) =>
   res.send("Hello World !")
@@ -25,3 +40,4 @@ app.get("/", (req, res) =>
 
 app.use("/images", express.static(path.join(__dirname, "images"))); // à mettre à la fin au dessus du listen pour le chemin de l'image
 app.listen(port, () => console.log("Server listening on Port " + port));
+// app.listen(process.env.PORT || 3000);

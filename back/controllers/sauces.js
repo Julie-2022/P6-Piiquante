@@ -1,23 +1,9 @@
 const mongoose = require("mongoose");
+const Product = require("../models/sauces");
+// const Product = mongoose.model("Product", productSchema);
+
 //const { unlink } = require("fs");
 const { unlink } = require("fs/promises");
-const { nextTick } = require("process");
-//const { likeSauce } = require("./vote");
-
-const productSchema = new mongoose.Schema({
-  userId: String,
-  name: String,
-  manufacturer: String,
-  description: String,
-  mainPepper: String,
-  imageUrl: String,
-  heat: Number,
-  likes: Number,
-  dislikes: Number,
-  usersLiked: [String],
-  usersDisliked: [String],
-});
-const Product = mongoose.model("Product", productSchema);
 
 function getSauces(req, res) {
   console.log("Le token a été validé, nous sommes dans getSauces");

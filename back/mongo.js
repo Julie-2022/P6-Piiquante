@@ -14,8 +14,11 @@
 //mongodb+srv://user_1:<password>@piquante.s38s1qs.mongodb.net/?retryWrites=true&w=majority
 //Database (user_1) MP: MongoDBP6
 
+/************************* */
+
 const mongoose = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
+const User = require("./models/users");
+//const uniqueValidator = require("mongoose-unique-validator");
 
 const dotenv = require("dotenv");
 //require('dotenv').config()
@@ -29,12 +32,12 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to Mongo :", err));
 
-const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-});
-userSchema.plugin(uniqueValidator);
+// const userSchema = new mongoose.Schema({
+//   email: { type: String, required: true, unique: true },
+//   password: { type: String, required: true },
+// });
+// userSchema.plugin(uniqueValidator);
 
-const User = mongoose.model("User", userSchema);
+//const User = mongoose.model("User", userSchema);
 
-module.exports = { mongoose, User };
+module.exports = { mongoose };

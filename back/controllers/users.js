@@ -1,4 +1,4 @@
-const { User } = require("../mongo"); //car User renvoie un objet
+const User = require("../models/users"); //car User renvoie un objet
 const bcrypt = require("bcrypt"); // crypt mot de pass
 //const { is } = require("express/lib/request");
 const jwt = require("jsonwebtoken");
