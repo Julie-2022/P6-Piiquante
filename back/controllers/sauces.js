@@ -63,7 +63,7 @@ function deleteImage(product) {
 
 function modifySauce(req, res) {
   const { id } = req.params; //destructuring
-  //const body = req.body;
+  //const body = req.body;;
   //const {id} = params // === const id = params.id
   //console.log("body et params :", body, id);
   console.log("req.file", req.file != null);

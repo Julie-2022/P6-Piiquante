@@ -24,4 +24,4 @@ app.get("/", (req, res) =>
 //app.use("/images", express.static("images")); // à mettre à la fin au dessus du listen pour le chemin de l'image
 
 app.use("/images", express.static(path.join(__dirname, "images"))); // à mettre à la fin au dessus du listen pour le chemin de l'image
-app.listen(port, () => console.log("listening on Port " + port));
+app.listen(port, () => console.log("Server listening on Port " + port));
