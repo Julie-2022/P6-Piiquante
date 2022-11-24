@@ -17,14 +17,14 @@ _**Installation et lancement de l'application**_
 1. Cloner le repository
    [Frontend et backend](https://github.com/Julie-2022/P6-Piiquante.git)
 2. Ouvrir un terminal (Linux/Mac) ou une invite de commande/PowerShell
-   (Windows) ou dans l'IDE (Moi : Vscode)
+   (Windows)
 3. Lancer l'application depuis le frontend : Exécutez "npm install" à partir du répertoire frontend puis "npm run start"
-4. Lancer l'API depuis le backend : Exécutez "npm install" à partir du répertoire backend puis créer un dossier "images" dans le répertoire backend via la commande : "mkdir images" dans votre terminal. Enfin lancer le server avec "nodemon server" (après l'avoir installé sur votre ordinateur (npm install -g nodemon))
+4. Sur VsCode, lancer l'API depuis le backend : Exécutez "npm install" à partir du répertoire backend puis créer un dossier "images" dans le répertoire backend via la commande : "mkdir images" dans votre terminal. Enfin lancer le server avec "nodemon index.js" (après l'avoir installé sur votre ordinateur (npm install -g nodemon))
 5. Dans le dossier backend, créer un fichier ".env" à la racine et y déclarer la valeur de vos variables d'environnement (sans espace et en majuscules)
 6. Installer les modules listés dans le fichier package.json (dependencies)
 7. Le back-end s'exécute sur http://localhost:3000
 8. Le front-end s'exécute sur http://localhost:4200
-9. Si tout a été correctement installé et le compte de MongoDb créé et relié à l'application : les mentions "Server listening on Port 3000 - Connected to MongoDB" devraient s'afficher dans votre terminal.
+9. Si tout a été correctement installé et le compte de MongoDb créé et relié à l'application : les mentions "Server listening on Port 3000 & Connected to MongoDB" devraient s'afficher dans votre terminal.
 
 ---
 
@@ -32,6 +32,7 @@ _**Installation et lancement de l'application**_
 
 - Visual Studio Code
 - Git & GitHub
+- Javascript
 - NodeJs
 - Express
 - Mongoose
@@ -44,9 +45,6 @@ _**Installation et lancement de l'application**_
 
 **Contexte du projet**  
 Piiquante se dédie à la création de sauces épicées dont les recettes sont gardées secrètes. Pour tirer parti de son succès et générer davantage de buzz, l'entreprise souhaite créer une application web dans laquelle les utilisateurs peuvent ajouter leurs sauces préférées et liker ou disliker les sauces ajoutées par les autres.
-
-**API Errors**  
-Les erreurs éventuelles doivent être renvoyées telles qu'elles sont produites, sans modification ni ajout. Si nécessaire, utiliser une nouvelle Error().
 
 **API Routes**  
 Toutes les routes pour les sauces doivent disposer d’une autorisation (le token est envoyé par le front-end avec l'en-tête d’autorisation : « Bearer + token »).

@@ -1,4 +1,6 @@
 const express = require("express");
+const saucesRouter = express.Router();
+
 const {
   getSauces,
   createSauce,
@@ -7,9 +9,9 @@ const {
   modifySauce,
   likeSauce,
 } = require("../controllers/sauces");
+
 const { authenticateUser } = require("../middleware/auth");
 const { upload } = require("../middleware/multer"); //récup des fichiers(image) file
-const saucesRouter = express.Router();
 const bodyParser = require("body-parser");
 
 saucesRouter.use(bodyParser.json());

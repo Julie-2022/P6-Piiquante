@@ -1,43 +1,22 @@
-/********** Données de MongoDB */
-// mongodb+srv://user_1:<password>@cluster0.1kjbg2l.mongodb.net/?retryWrites=true&w=majority
-
-// const { MongoClient, ServerApiVersion } = require('mongodb');
-// const uri = "mongodb+srv://user_1:<password>@cluster0.1kjbg2l.mongodb.net/?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
-/************ MongoDB 2ème essai */
-//Piquante MP: MongoSauce
-//mongodb+srv://user_1:<password>@piquante.s38s1qs.mongodb.net/?retryWrites=true&w=majority
-//Database (user_1) MP: MongoDBP6
-
-/************************* */
+require("dotenv").config();
 
 const mongoose = require("mongoose");
-const User = require("./models/users");
-//const uniqueValidator = require("mongoose-unique-validator");
-
-const dotenv = require("dotenv");
-//require('dotenv').config()
-dotenv.config({ path: "./controllers/.env" });
 
 //console.log("Variable d'environnement:", process.env.DB_URL)
-const uri = process.env.DB_URL;
+const passwordDB = process.env.DB_PASSWORD;
+const userDB = process.env.DB_USER;
+const clusterDB = process.env.DB_CLUSTER;
+const uri = `mongodb+srv://${userDB}:${passwordDB}@${clusterDB}.s38s1qs.mongodb.net/?retryWrites=true&w=majority`;
+
+// ou : const uri = process.env.DB_URL;
+// et  dans .env : DB_URL=mongodb+srv://user_1:fYrbx3vNaJEAOq8e@piquante.s38s1qs.mongodb.net/?retryWrites=true&w=majority
 
 mongoose
-  .connect(uri)
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to Mongo :", err));
-
-// const userSchema = new mongoose.Schema({
-//   email: { type: String, required: true, unique: true },
-//   password: { type: String, required: true },
-// });
-// userSchema.plugin(uniqueValidator);
-
-//const User = mongoose.model("User", userSchema);
 
 module.exports = { mongoose };

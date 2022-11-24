@@ -1,13 +1,11 @@
 const User = require("../models/users"); //car User renvoie un objet
 const bcrypt = require("bcrypt"); // crypt mot de pass
-//const { is } = require("express/lib/request");
 const jwt = require("jsonwebtoken");
 //const bruteForce = require("bruteforcejs")
 const validator = require("validator");
 
 async function createUser(req, res) {
   const { email, password } = req.body;
-
   if (validator.isEmail(email) == false) {
     return res
       .status(400)
@@ -18,7 +16,6 @@ async function createUser(req, res) {
       .status(400)
       .send({ message: "Mot de passe pas assez fort :", password });
   }
-
   try {
     const hashedPassword = await hashPassword(password);
     //console.log("password: ", password);console.log("hashedpassword: ", hashedPassword);
@@ -29,7 +26,7 @@ async function createUser(req, res) {
     //return console.log("User enregistré !", res)
   } catch (err) {
     return res
-      .status(409)
+      .status(500)
       .send({ message: "Utilisateur pas enregistré :" + err });
   }
 }
@@ -47,13 +44,13 @@ async function logUser(req, res) {
     const user = await User.findOne({ email: email });
     //Vérif password
     User.findOne({ email: email }).then(console.log); // return 1 objet User
-    console.log({ password });
-    console.log("req.body.password", req.body.password);
+    //console.log({ password });
+    //console.log("req.body.password", req.body.password);
     const isValidPassword = await bcrypt.compare(password, user.password);
-    console.log({ password });
+    //console.log({ password });
 
     if (!isValidPassword) {
-      return res.status(403).send({ message: "Mot de passe incorrect" });
+      return res.status(401).send({ message: "Mot de passe incorrect" });
     }
     const token = createToken(email);
     res
@@ -68,18 +65,8 @@ async function logUser(req, res) {
 
 function createToken(email) {
   const jwtPassword = process.env.JWT_PASSWORD;
-  return jwt.sign({ email: email }, jwtPassword, { expiresIn: "24h" }); //test 1000ms
+  return jwt.sign({ email: email }, jwtPassword, { expiresIn: "24h" }); // test 1000ms
 }
 
-/**** Pour vider la Bd */
 //User.deleteMany({}).then(() => console.log("all removed"))
 module.exports = { createUser, logUser };
-
-// jwt.verify("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imp1bHl6ZWJkYTEyM0B5YWhvby5mciIsImlhdCI6MTY2ODA3MjgxNSwiZXhwIjoxNjY4MDcyODE2fQ.s1quOEjp1I0xPEgiTxRdhgpnRyN7FOJxBqPvhA_8APY",
-//  function verif (err, decode) {
-//      if(err) {
-//          console.error("ERROR :", err)
-//     } else {
-//          console.log("DECODED :", decode)
-//         }
-//     }

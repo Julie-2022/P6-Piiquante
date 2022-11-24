@@ -1,20 +1,15 @@
 /****** Server ****/
-require("dotenv").config();
 const express = require("express");
-const app = express();
+const app = express(); //donne accés au corps de la req (req.body)
 const cors = require("cors");
 const helmet = require("helmet");
 
 // Middleware (toujours avant les routes)
 //sécurisation des en-têtes HTTP
-///app.use(helmet()); // ++
 app.use(
   helmet({
-    crossOriginResourcePolicy: false,
+    crossOriginResourcePolicy: false, //pour les images
   })
-  //helmet.crossOriginResourcePolicy({
-  //policy: "cross-origin", // pour afficher les images sur le site, cela enlève ces paramètres de sécurité : same-site | same-origin
-  //})
 );
 //Active CORS pour éviter les attaques CSRF
 app.use(

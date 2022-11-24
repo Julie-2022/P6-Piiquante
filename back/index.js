@@ -5,7 +5,6 @@ const port = 3000;
 const path = require("path"); // ds node pour avoir le dirname et donner le chemin absolu
 
 const bodyParser = require("body-parser");
-const res = require("express/lib/response");
 
 //Connection to Database
 require("./mongo");
@@ -23,21 +22,13 @@ app.use((req, res, next) => {
   );
   next();
 });
-
 app.use(bodyParser.json());
 app.use("/api/sauces", saucesRouter);
 app.use("/api/auth", authRouter);
 
 //Routes
-app.get("/", (req, res) =>
-  res.send("Hello World !")
-); /* chemin général tout en bas */
-//Listen
-// console.log("----------------------");
-// console.log("__dirname :", __dirname);
-// console.log("chemin absolu images:", path.join(__dirname, "images"));
-//app.use("/images", express.static("images")); // à mettre à la fin au dessus du listen pour le chemin de l'image
+app.get("/", (req, res) => res.send("Hello World !"));
 
-app.use("/images", express.static(path.join(__dirname, "images"))); // à mettre à la fin au dessus du listen pour le chemin de l'image
-app.listen(port, () => console.log("Server listening on Port " + port));
-// app.listen(process.env.PORT || 3000);
+// Listen
+app.use("/images", express.static(path.join(__dirname, "images"))); // multer
+app.listen(port, () => console.log("Server listening on Port: " + port));
