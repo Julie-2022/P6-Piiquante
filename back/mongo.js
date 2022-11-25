@@ -8,9 +8,6 @@ const userDB = process.env.DB_USER;
 const clusterDB = process.env.DB_CLUSTER;
 const uri = `mongodb+srv://${userDB}:${passwordDB}@${clusterDB}.s38s1qs.mongodb.net/?retryWrites=true&w=majority`;
 
-// ou : const uri = process.env.DB_URL;
-// et  dans .env : DB_URL=mongodb+srv://user_1:fYrbx3vNaJEAOq8e@piquante.s38s1qs.mongodb.net/?retryWrites=true&w=majority
-
 mongoose
   .connect(uri, {
     useNewUrlParser: true,
