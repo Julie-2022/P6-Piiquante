@@ -6,7 +6,7 @@
 
 ---
 
-![](public/logo.png)
+![](back/public/logo.png)
 
 _**Objectif du projet**_ : construire une API REST sécurisée pour une application d'avis gastronomique
 
