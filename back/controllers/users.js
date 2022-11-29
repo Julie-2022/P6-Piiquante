@@ -12,6 +12,7 @@ async function createUser(req, res) {
       .send({ message: "l'e-mail n'est pas valide :", email });
   }
   if (validator.isStrongPassword(password) == false) {
+    // enlever les espaces pour plus de sécurité
     return res
       .status(400)
       .send({ message: "Mot de passe pas assez fort :", password });

@@ -1,10 +1,10 @@
-/****** Server ****/
+/****** server.js ****/
 const express = require("express");
 const app = express(); //donne accés au corps de la req (req.body)
 const cors = require("cors");
 const helmet = require("helmet");
 
-// Middleware (toujours avant les routes)
+// Middleware
 //sécurisation des en-têtes HTTP
 app.use(
   helmet({
@@ -14,7 +14,6 @@ app.use(
 //Active CORS pour éviter les attaques CSRF
 app.use(
   cors({
-    //app.use(cors());
     origin: "http://localhost:4200",
   })
 ); // ajoute les headers /Network. cors est un middleware qui va s'éxecuter entre la req et la rep

@@ -21,11 +21,12 @@ function getSauceById(req, res) {
 }
 
 function deleteSauce(req, res) {
+  // ajouter vérification UserId sur delete et modify
   const { id } = req.params;
   Product.findByIdAndDelete(id)
     .then((product) => sendClientResponse(product, res))
     .then((item) => deleteImage(item))
-    .then((res) => console.log("FILE DELETED !", res))
+    .then((res) => console.log("FILE DELETED !", res)) // pas obligatoire
     .catch((err) => res.status(400).send({ message: err }));
 }
 
@@ -73,16 +74,10 @@ function makeImageUrl(req, fileName) {
 }
 
 function createSauce(req, res) {
-  // console.log(
-  //   "req Url :",
-  //   req.protocol + "://" + req.get("host") + req.originalUrl
-  // );
+  // console.log("req Url :", req.protocol + "://" + req.get("host") + req.originalUrl);
   // console.log({ body: req.body });
-  // const body = req.body;
-  // const file = req.file;
-  // const fileName = file.fileName;
-  const { body, file } = req;
-  const { fileName } = file;
+  const { body, file } = req; // const body = req.body;// const file = req.file;
+  const { fileName } = file; // const fileName = file.fileName;
   //console.log({ file });
   const sauce = JSON.parse(body.sauce);
   //console.log("sauce :", sauce);
@@ -107,7 +102,9 @@ function createSauce(req, res) {
     .then((message) => res.status(201).send({ message }))
     .catch((err) => res.status(400).send({ message: err }));
 }
+
 /****************** Like  *************************/
+
 function likeSauce(req, res) {
   const { like, userId } = req.body;
   //console.log("like, userId :", like, userId);
@@ -129,9 +126,10 @@ function updateVote(product, like, userId, res) {
 function resetVote(product, userId, res) {
   const { usersLiked, usersDisliked } = product;
   //const arrayToUpdate = usersLiked.includes(userId) ? usersLiked : usersDisliked
+  // Si toutes les array contiennent l'userId
   if ([usersLiked, usersDisliked].every((arr) => arr.includes(userId)))
-    return Promise.reject({ message: "user seems to have voted both ways" });
-
+    return Promise.reject({ message: "user seems to have voted both ways" }); // Promise.reject() pour le forcer à aller dans le catch
+  // si dans ces 2 array, il y en a aucune des 2 qui contient cet userId
   if (![usersLiked, usersDisliked].some((arr) => arr.includes(userId)))
     return Promise.reject({ message: "user seems to have not voted" });
 
@@ -172,9 +170,9 @@ module.exports = {
 // votesToUpdate--
 // usersLiked.includes(userId) ? (product.likes = votesToUpdate) : (product.dislikes = votesToUpdate)
 //console.log("voteToUpdate :", voteToUpdate)
-/****************** */
+/********************** */
 
-/******************** */
+/********************* */
 // let arrayToUpdate = usersLiked.includes(userId) ? usersLiked : usersDisliked
 // arrayToUpdate = arrayToUpdate.filter(id => id != userId)
 //console.log("Reset vote after :", product);
